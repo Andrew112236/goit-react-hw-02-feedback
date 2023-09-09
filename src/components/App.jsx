@@ -1,30 +1,45 @@
 import React, { useState } from 'react';
 import Statistics from './Statistics/statistics.js';
+import FeedbackCounter from './FeedbackCounter/FeedbackCounter.js';
 
-const App = () => {
-  // Definirea stării folosind useState
+function App() {
+  // Initial state values
   const [feedback, setFeedback] = useState({
-    Good: 0,
-    Neutral: 0,
-    Bad: 0,
+    good: 0,
+    neutral: 0,
+    bad: 0,
   });
 
-  // Calculul totalului și procentajului pozitiv
-  const totalFeedback = feedback.Good + feedback.Neutral + feedback.Bad;
-  const positivePercentage =
-    totalFeedback > 0 ? (feedback.Good / totalFeedback) * 100 : 0;
+  // handleEvent buttons
+  const handleButtonClick = category => {
+    setFeedback(prevFeedback => ({
+      ...prevFeedback,
+      [category]: prevFeedback[category] + 1,
+    }));
+  };
+
+  // Math values
+  const total = feedback.good + feedback.neutral + feedback.bad;
+  const positivePercentage = (feedback.good / total) * 100 || 0;
+  const negativePercentage = (feedback.bad / total) * 100 || 0;
 
   return (
     <div>
+      <FeedbackCounter
+        feedback={feedback}
+        handleButtonClick={handleButtonClick}
+      />
+
       <Statistics
-        good={feedback.Good}
-        neutral={feedback.Neutral}
-        bad={feedback.Bad}
-        total={totalFeedback}
+        good={feedback.good}
+        neutral={feedback.neutral}
+        bad={feedback.bad}
+        total={total}
         positivePercentage={positivePercentage}
+        negativePercentage={negativePercentage}
       />
     </div>
   );
-};
+}
 
 export default App;
