@@ -1,21 +1,30 @@
 import React from 'react';
+import styles from './FeedbackCounter.module.css';
 
 function FeedbackCounter(props) {
-  const { feedback, handleButtonClick } = props;
+  const { handleButtonClick } = props;
 
   return (
-    <div>
+    <div className={styles.buttons_container}>
       {/* Remain the state */}
-      <button onClick={() => handleButtonClick('good')}>Good</button>
-      <button onClick={() => handleButtonClick('neutral')}>Neutral</button>
-      <button onClick={() => handleButtonClick('bad')}>Bad</button>
-
-      <div>
-        {/* Total number of states */}
-        <p>Good: {feedback.good}</p>
-        <p>Neutral: {feedback.neutral}</p>
-        <p>Bad: {feedback.bad}</p>
-      </div>
+      <button
+        className={styles.button}
+        onClick={() => handleButtonClick('good')}
+      >
+        <p className={styles.emoji}>&#128512;</p>
+      </button>
+      <button
+        className={styles.button}
+        onClick={() => handleButtonClick('neutral')}
+      >
+        <p className={styles.emoji}>&#x1F610;</p>
+      </button>
+      <button
+        className={styles.button}
+        onClick={() => handleButtonClick('bad')}
+      >
+        <p className={styles.emoji}>&#x1F624;</p>
+      </button>
     </div>
   );
 }

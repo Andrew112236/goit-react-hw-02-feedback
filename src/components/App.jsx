@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Statistics from './Statistics/statistics.js';
 import FeedbackCounter from './FeedbackCounter/FeedbackCounter.js';
+import Section from './Section/Section.js';
+import Notification from './Notification/Notification.js';
 
 function App() {
   // Initial state values
@@ -25,19 +27,27 @@ function App() {
 
   return (
     <div>
-      <FeedbackCounter
-        feedback={feedback}
-        handleButtonClick={handleButtonClick}
-      />
+      <Section title="Please leave feedback">
+        <FeedbackCounter
+          feedback={feedback}
+          handleButtonClick={handleButtonClick}
+        />
+      </Section>
 
-      <Statistics
-        good={feedback.good}
-        neutral={feedback.neutral}
-        bad={feedback.bad}
-        total={total}
-        positivePercentage={positivePercentage}
-        negativePercentage={negativePercentage}
-      />
+      <Section>
+        {total === 0 ? (
+          <Notification message="There is no feedback.&#x1F622; " />
+        ) : (
+          <Statistics
+            good={feedback.good}
+            neutral={feedback.neutral}
+            bad={feedback.bad}
+            total={total}
+            positivePercentage={positivePercentage}
+            negativePercentage={negativePercentage}
+          />
+        )}
+      </Section>
     </div>
   );
 }
